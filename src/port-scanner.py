@@ -10,7 +10,7 @@ GREEN = Fore.GREEN
 RESET = Fore.RESET
 GRAY = Fore.LIGHTBLACK_EX
 
-DEFAULT_N_THREADS = 100
+DEFAULT_N_THREADS = 50
 # thread queue
 q = Queue()
 print_lock = Lock()
@@ -52,42 +52,19 @@ def main(host, ports, n_threads):
     # wait for threads to finish
     q.join()
 
-if len(sys.argv) == 2:
-    host = sys.argv[1]
-    start_port, end_port = 1, 65535
-    n_threads = DEFAULT_N_THREADS
-elif len(sys.argv) == 3:
-    host = sys.argv[1]
-    ports = sys.argv[2]
-    start_port, end_port = ports.split("-")
-    start_port, end_port = int(start_port), int(end_port)
-    n_threads = DEFAULT_N_THREADS
-elif len(sys.argv) == 4:
-    host = sys.argv[1]
-    ports = sys.argv[2]
-    start_port, end_port = ports.split("-")
-    start_port, end_port = int(start_port), int(end_port)
-    n_threads = int(sys.argv[3])
-else:
-    while True:
-        args = input("Enter args in format HostIP StartPort-EndPort NumberOfThreads: ").split()
-        if len(args) < 1 or not args[0]:
-            print("Host IP is required. Please try again.")
-            continue
-        host = args[0]
-        try:
-            if len(args) >= 2:
-                start_port, end_port = args[1].split("-")
-                start_port, end_port = int(start_port), int(end_port)
-            else:
-                start_port, end_port = 1, 65535
-            if len(args) >= 3:
-                n_threads = int(args[2])
-            else:
-                n_threads = DEFAULT_N_THREADS
-            break  # Exit loop if everything is valid
-        except Exception as e:
-            print(f"Invalid input: {e}. Please try again.")
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Simple port scanner")
+    parser.add_argument("host", help="Required argument, this is the host to scan.")
+    parser.add_argument("--ports", "-p", dest="port_range", default="1-65535", help="Port range to scan, default is 1-65535 (all ports)")
+    parser.add_argument("--threads", "-n", "-t", dest="n_threads", default=50, help="Number of threads, default is 50")
+    args = parser.parse_args()
+    host, port_range, n_threads = args.host, args.port_range, args.n_threads
 
-ports = [ p for p in range(start_port, end_port)]
-main(host, ports, n_threads)
+    start_port, end_port = port_range.split("-")
+    start_port, end_port = int(start_port), int(end_port)
+
+    ports = [ p for p in range(start_port, end_port)]
+
+    n_threads = int(n_threads)
+
+    main(host, ports, n_threads)

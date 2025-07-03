@@ -15,5 +15,5 @@
     }
   },
   "forwardPorts": [],
-  "postCreateCommand": "pip install -r requirements.txt && bash .devcontainer/banner.sh",
+  "postCreateCommand": "pip install -r requirements.txt",
 }
