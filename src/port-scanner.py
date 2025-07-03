@@ -10,7 +10,7 @@ GREEN = Fore.GREEN
 RESET = Fore.RESET
 GRAY = Fore.LIGHTBLACK_EX
 
-N_THREADS = 200
+N_THREADS = 100
 # thread queue
 q = Queue()
 print_lock = Lock()
@@ -52,16 +52,23 @@ def main(host, ports):
     # wait for threads to finish
     q.join()
 
-if (len(sys.argv) >1 ):
-    host, ports = sys.argv[1], sys.argv[2]
+if len(sys.argv) == 2:
+    host = sys.argv[1]
+    start_port, end_port = 1, 65535
+elif len(sys.argv) == 3:
+    host = sys.argv[1]
+    ports = sys.argv[2]
     start_port, end_port = ports.split("-")
     start_port, end_port = int(start_port), int(end_port)
 else:
     print(sys.argv)
-    host, ports = input("Enter args in format HostIP StartPort-EndPort").split(" ")
-    #get the start and end ports
-    start_port,end_port = ports.split("-")
-    start_port, end_port = int(start_port), int(end_port)
+    args = input("Enter args in format HostIP StartPort-EndPort: ").split()
+    host = args[0]
+    if len(args) > 1:
+        start_port, end_port = args[1].split("-")
+        start_port, end_port = int(start_port), int(end_port)
+    else:
+        start_port, end_port = 1, 65535
 
 ports = [ p for p in range(start_port, end_port)]
 
