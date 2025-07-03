@@ -3,9 +3,15 @@
   "build": {
     "dockerfile": "../Dockerfile"
   },
+  "features": {
+    "ghcr.io/devcontainers/features/welcome:1": {
+      "message": "**Welcome to Dan Carter's Port Scanner Codespace!**\n\nTo run the scanner, use:\n```bash\npython src/port-scanner.py <target-ip> <port-range> <thread-count>\n```\nExample:\n```bash\npython src/port-scanner.py 192.168.1.1 1-100 10\n This script is intended for educational and authorized use only. Do not scan targets without explicit permission. Unauthorized scanning may be illegal. The author is not liable for any misuse or damage caused by this tool.```"
+    }
+  },
   "customizations": {
     "vscode": {
       "settings": {
+        "terminal.integrated.cwd": "src",
         "terminal.integrated.shell.linux": "/bin/bash"
       },
       "extensions": [
@@ -15,5 +21,4 @@
   },
   "forwardPorts": [],
   "postCreateCommand": "pip install -r requirements.txt",
-  "welcomeMessage": "**Welcome to Dan Carter's Port Scanner Codespace!**\n\nTo run the scanner, use:\n```bash\npython src/port-scanner.py <target-ip> <port-range> <thread-count>\n```\nExample:\n```bash\npython src/port-scanner.py 192.168.1.1 1-100 10\n This script is intended for educational and authorized use only. Do not scan targets without explicit permission. Unauthorized scanning may be illegal. The author is not liable for any misuse or damage caused by this tool.```"
 }
