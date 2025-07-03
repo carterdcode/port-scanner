@@ -9,6 +9,16 @@ By using this tool, you agree that the author(s) are **not responsible** for any
 
 Use responsibly.
 
-To use the tool from the commandline simply navigate to the src directory and run the command python port-scanner.py HostAddress Port-Range NumberOfThreads for example:
-python port-scanner.py 192.168.0.1 1-5000 100. 
+To use the tool from the commandline simply navigate to the src directory and run the command python port-scanner.py HostAddress -p Port-Range -n NumberOfThreads 
+For example:
+python port-scanner.py 192.168.0.1 -p 1-5000 -n 100 
 You can also leave the port range and number of threads blank and it will use the default values.
+
+
+You can also run this program using docker. 
+Navigate to portscanner/src 
+Then enter the following commands in the command line
+docker build -t port-scanner .
+docker run --rm -it port-scanner 192.168.1.238 -p 1-10 -n 1
+
+
