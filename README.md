@@ -81,6 +81,6 @@ port-scanner/
 
 ## ✅ Tip
 
-If you're using GitHub Codespaces, the terminal will automatically start in the `src/` directory and display usage instructions.
+If you're using GitHub Codespaces, the terminal will automatically start in the `src/` directory and display this readme file (it may take a while to load).
 
 ---
